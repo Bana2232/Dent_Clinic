@@ -20,20 +20,29 @@
         <div class="row">
             {% for day in week %}
             {% if day.1 == 0 %}
-            <button class="day"
-                    onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ day.0 }}'">
+
+            {% if day.0 == sel_date.day and clicked %}
+            <button class="day" style="background-color: green;"
+                    onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ day.0 }}&clicked=True'">
                 {{ day.0 }}
             </button>
 
+            {% else %}
+            <button class="day"
+                    onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ day.0 }}&clicked=True'">
+                {{ day.0 }}
+            </button>
+            {% endif %}
+
             {% elif day.1 == 1 %}
             <button style="color: #ddd" class="day"
-                    onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ next_year }}&month={{ next_month }}&day={{ day.0 }}'">
+                    onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ next_year }}&month={{ next_month }}&day={{ day.0 }}&clicked=True'">
                 {{ day.0 }}
             </button>
 
             {% else %}
             <button style="color: #ddd" class="day"
-                    onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ prev_year }}&month={{ prev_month }}&day={{ day.0 }}'">
+                    onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ prev_year }}&month={{ prev_month }}&day={{ day.0 }}&clicked=True'">
                 {{ day.0 }}
             </button>
 

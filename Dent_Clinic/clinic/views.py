@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.urls import reverse
 
 from .forms import UserRegistrationForm, LoginForm, EditProfileForm, CustomPasswordChangeForm
-from .models import BlogPost, Doctor, Appointment, Service
+from .models import BlogPost, Doctor, Appointment, Service, User
 from .func import make_calendar_page
 
 
@@ -143,24 +143,23 @@ def change_password(request):
 
 
 def appointments_calendar(request):
+    user = request.user
+    appointments = user.patient_appointments.all()
+
+    clicked = request.GET.get("clicked", "False")
+    clicked = clicked == "True"
+
     today = datetime.date.today()
 
     day = int(request.GET.get("day", today.day))
     month = int(request.GET.get("month", today.month))
     year = int(request.GET.get("year", today.year))
 
-    next_year = year
-    prev_year = year
+    next_month = (month + 1) % 12 if month != 11 else 12
+    prev_month = month - 1 if month != 1 else 12
 
-    if month > 12:
-        month = 1
-        year += 1
-        prev_year = year - 1
-
-    elif month == 0:
-        month = 12
-        year -= 1
-        next_year = year + 1
+    next_year = year + 1 * (next_month == 1)
+    prev_year = year - 1 * (prev_month == 12)
 
     selected_date = datetime.date(year=year,
                                   month=month, day=day)
@@ -168,13 +167,11 @@ def appointments_calendar(request):
     cal = make_calendar_page(datetime.date(year=year,
                                            month=month, day=1))
 
-    next_month = (month + 1) % 12
-    prev_month = month - 1 if month != 1 else 12
-
     return render(request, "appointments_page.html",
                   {"calendar": cal, "sel_date": selected_date,
                    "prev_month": prev_month, "next_month": next_month,
-                   "prev_year": prev_year, "next_year": next_year})
+                   "prev_year": prev_year, "next_year": next_year,
+                   "clicked": clicked, "appointments": appointments})
 
 
 def send_email(request):

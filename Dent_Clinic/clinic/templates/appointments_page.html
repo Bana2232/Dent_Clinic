@@ -10,7 +10,32 @@
 {% endblock %}
 
 {% block content %}
-<div class="content">
+<div class="content" style="height: 800px;">
+    <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary"
+         style="width: 30%; height: 100%;">
+        {% if clicked %}
+        <a href="{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ sel_date.day }}&clicked=False"
+           class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+            <span class="fs-5 fw-semibold">&#8592; Вернуться</span>
+        </a>
+
+        {% else %}
+        <h3 class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">Список ваших записей</h3>
+
+        {% endif %}
+
+        <div class="list-group list-group-flush border-bottom scrollarea">
+            {% for app in appointments %}
+            <a href="{% url 'clinic:appointments' %}?year={{ app.date.year }}&month={{ app.date.month }}&day={{ app.date.day }}&clicked=True" class="list-group-item list-group-item-action py-3 lh-sm">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                    <strong class="mb-1">Запись на {{ app.date|date:"d F Y" }}</strong>
+                    <small class="text-body-secondary">{{ app.date | date:"D" }}</small>
+                </div>
+                <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
     {% include "calendar.html" with calendar=calendar sel_date=sel_date %}
 </div>
 
