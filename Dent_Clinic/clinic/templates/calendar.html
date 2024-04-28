@@ -1,0 +1,46 @@
+<div class="calendar">
+    <div class="top">
+        <button class="prev"
+                onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ prev_year }}&month={{ prev_month }}&day={{ sel_date.day }}'">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
+                <path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>
+            </svg>
+        </button>
+        <p style="font-weight: bold;">{{ sel_date|date:"F Y" }}</p>
+        <button class="next"
+                onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ next_year }}&month={{ next_month }}&day={{ sel_date.day }}'">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
+                <path d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <div class="middle">
+        {% for week in calendar %}
+        <div class="row">
+            {% for day in week %}
+            {% if day.1 == 0 %}
+            <button class="day"
+                    onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ day.0 }}'">
+                {{ day.0 }}
+            </button>
+
+            {% elif day.1 == 1 %}
+            <button style="color: #ddd" class="day"
+                    onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ next_year }}&month={{ next_month }}&day={{ day.0 }}'">
+                {{ day.0 }}
+            </button>
+
+            {% else %}
+            <button style="color: #ddd" class="day"
+                    onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ prev_year }}&month={{ prev_month }}&day={{ day.0 }}'">
+                {{ day.0 }}
+            </button>
+
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+</div>

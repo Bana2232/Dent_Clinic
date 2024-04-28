@@ -1,0 +1,39 @@
+.return_btn {
+    background-color: #f2efeb;
+    border-radius: 15px;
+    border: none;
+    padding: 10px;
+}
+
+.content {
+    margin: 0;
+    padding: 0px;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 20px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.image {
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
+    background-position: center;
+    margin-right: 40px;
+}
+
+.top {
+    display: flex;
+}
+
+.about ul {
+    color: #91918e;
+    font-size: 22px;
+    margin-top: 20px;
+    font-weight: bold
+}

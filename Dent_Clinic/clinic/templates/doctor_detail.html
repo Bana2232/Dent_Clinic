@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}{{ doctor.full_name }}{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/doctor_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="titile">
+        <a href="{% url 'clinic:about' %}"><input class="return_btn" value="Вернуться" type="button"></a>
+        <h2 class="pb-2 border-bottom">{{ doctor.full_name }}</h2>
+    </div>
+
+    <div class="top">
+        <img src="{{ doctor.doctor_image.get.image.url }}" class="image">
+
+        <div class="about">
+            <ul>
+                <li>Возраст: {{ doctor.get_years_old }}</li>
+                <li>Специализация: {{ doctor.specialization }}</li>
+                <li>Категория: {{ doctor.get_category_display }}</li>
+                <li>Опыт работы: {{ doctor.experience_years }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3 class="pb-3 border-bottom" style="margin-top: 20px;">О себе</h3>
+    <h5>{{ doctor.bio }}</h5>
+
+</div>
+{% endblock %}

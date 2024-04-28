@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Услуги{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/services_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content" style="margin: 30px;">
+    <h1 class="pb-2 border-bottom">Выберите услугу</h1>
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        {% for service in services %}
+        <div class="card">
+            <a href="{{ service.get_absolute_url }}">
+                <div class="images">
+                    <div class="slider">
+                        <div class="slides">
+                            <div class="slide"
+                                 style='background-image: url({{ service.service_image.first.image.url }})'></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <div class="card-body">
+                <a href="{{ service.get_absolute_url }}" style="text-decoration: none; color: black; ">
+                    <h5 class="card-title">{{ service.name }}</h5>
+                    <p class="card-text" style="margin-bottom: 10px;">{{ service.description }}</p>
+                </a>
+
+                <a href="{{ service.get_absolute_url }}" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

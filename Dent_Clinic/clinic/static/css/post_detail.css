@@ -1,0 +1,14 @@
+.return_btn {
+    background-color: #f2efeb;
+    border-radius: 15px;
+    border: none;
+    padding: 10px;
+}
+
+.content {
+    margin: 0;
+    padding: 0px;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 20px;
+}

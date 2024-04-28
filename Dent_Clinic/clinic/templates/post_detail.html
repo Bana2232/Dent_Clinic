@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <a href="{% url 'clinic:post_list' %}"><input class="return_btn" value="Вернуться" type="button"></a>
+    <h2 class="pb-2 border-bottom" style="margin-top: 5px;">{{ post.title }}</h2>
+    <p class="date">
+        Опубликовано {{ post.publish }} пользователем {{ post.author }}
+    </p>
+    {{ post.content|linebreaks }}
+
+</div>
+{% endblock %}

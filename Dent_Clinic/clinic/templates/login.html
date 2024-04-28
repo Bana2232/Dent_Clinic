@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Вход в аккаунт{% endblock %}
+
+{% block content %}
+<h2 align="center">Вход в аккаунт</h2>
+<div style="display: flex; justify-content: center; align-items: center;">
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Войти</button>
+    </form>
+</div>
+{% endblock %}

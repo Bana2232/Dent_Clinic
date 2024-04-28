@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Записи{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/calendarr.css' %}">
+<link rel="stylesheet" href="{% static 'css/appointments_page.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    {% include "calendar.html" with calendar=calendar sel_date=sel_date %}
+</div>
+
+{% endblock %}

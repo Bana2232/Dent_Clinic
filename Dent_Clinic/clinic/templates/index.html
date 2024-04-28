@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    {% if user.is_authenticated %}
+    <h1>Добро пожаловать, {{ user.first_name }}</h1>
+    {% else %}
+    <h1>Главная страница</h1>
+    {% endif %}
+
+    {% if user.email == "" %}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        Добавьте свою <a href="{% url 'clinic:profile' %}" class="alert-link">электронную почту</a>. Так мы сможем, например, отправлять вам напоминания о записях на приём.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <h2 style="margin-top: 20px; margin-bottom: 20px;">Ваши предстоящие встречи:</h2>
+    <div class="swiper-container">
+        {% for appoint in appointments|slice:":3" %}
+        <div class="card">
+            <div class="card-header">
+                Запись
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ appoint.target }}</h5>
+                <p class="card-text">Врач: {{ appoint.doctor }}</p>
+                <a href="#" class="btn btn-primary">Подробнее</a>
+            </div>
+            <div class="card-footer text-body-secondary">
+                {{ appoint.time_before_appoinment }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if appointments|length > 3 %}
+    <a href="{% url 'clinic:appointments' %}"><input type="button" value="Посмотреть все" class="show_all_btn"></a>
+    {% endif %}
+
+</div>
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock %}
+
+

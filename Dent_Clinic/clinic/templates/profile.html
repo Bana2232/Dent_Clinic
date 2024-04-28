@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/profile1.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    {% if user.is_authenticated %}
+    <h1>{{ user.full_name }}</h1>
+    <h4 style="color: #ccc;">Вы с нами с {{ user.registration_date }}</h4>
+    <div class="bd-example-snippet bd-code-snippet">
+        <div class="bd-example m-0 border-0">
+
+            <nav>
+                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                            type="button" role="tab" aria-controls="nav-home" aria-selected="true">Личные данные
+                    </button>
+
+                    <button class="nav-link" id="nav-settings-tab" data-bs-toggle="tab" data-bs-target="#nav-settings"
+                            type="button" role="tab" aria-controls="nav-settings" aria-selected="false" tabindex="-1">
+                        Настройки
+                    </button>
+                </div>
+            </nav>
+
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <p>{% include 'tab1.html' %}</p>
+                </div>
+
+                <div class="tab-pane fade" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">
+                    <p>{% include 'tab2.html' %}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {% else %}
+    <h1>Вы не авторизованы</h1>
+    <br>
+    <a href="{% url 'clinic:login' %}"><input class="btn btn-outline-primary" type="button" value="Войти"></a>
+    <a href="{% url 'clinic:register' %}"><input class="btn btn-outline-success" type="button"
+                                                 value="Зарегистрироваться"></a>
+    {% endif %}
+
+</div>
+{% endblock %}

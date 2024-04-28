@@ -1,0 +1,28 @@
+.content {
+    margin: 30px;
+}
+
+.swiper-container {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+/*  background-color: #d5d7db;
+    border-radius: 5px;*/
+}
+
+.show_all_btn {
+    background-color: #f2efeb;
+    border-radius: 15px;
+    border: none;
+    padding: 10px;
+}
+
+.card {
+    margin: 10px;
+    margin-left: 0;
+    width: 30%;
+    height: 50%;
+}
