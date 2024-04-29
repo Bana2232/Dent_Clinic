@@ -20,7 +20,10 @@
         </a>
 
         <div class="list-group list-group-flush border-bottom scrollarea">
-            <p>Запись на {{ sel_app.date|date:"d F Y" }}</p>
+            <p>Запись на {{ sel_app.date|date:"d F Y H:i" }}</p>
+            <p>Врач: {{ sel_app.doctor }}</p>
+            <p>Цель визита: {{ sel_app.target }}</p>
+
         </div>
 
         {% else %}

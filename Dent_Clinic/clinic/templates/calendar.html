@@ -21,9 +21,9 @@
             {% for day in week %}
             {% if day.1 == 0 %}
 
-            {% if day.0 == sel_date.day and clicked %}
+            {% if day.0 == sel_date.day %}
             <button class="day" style="background-color: green; color: #fff"
-                    onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ day.0 }}&clicked=True&show={{ show }}&filt_date={{ day.0 }}.{{ sel_date.month }}.{{ sel_date.year }}'">
+                    onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ day.0 }}&clicked={{ clicked }}&show={{ show }}&filt_date={{ day.0 }}.{{ sel_date.month }}.{{ sel_date.year }}'">
                 {{ day.0 }}
             </button>
 

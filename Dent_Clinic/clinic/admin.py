@@ -4,10 +4,6 @@ from django.contrib.admin import AdminSite
 from .models import *
 
 
-class MyAdminSite(AdminSite):
-    site_header = "Панель администрирования"
-
-
 @admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
     list_display = ["first_name", "last_name", "patronymic", "email", "phone", "specialization", "category"]

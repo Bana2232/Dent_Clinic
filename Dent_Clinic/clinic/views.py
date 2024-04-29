@@ -6,6 +6,7 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.urls import reverse
+from django.utils import timezone
 
 from .forms import UserRegistrationForm, LoginForm, EditProfileForm, CustomPasswordChangeForm
 from .models import BlogPost, Doctor, Appointment, Service, User
@@ -175,6 +176,7 @@ def appointments_calendar(request):
     else:
         sel_app = None
 
+    print(timezone.localtime(timezone.now()))
     show = request.GET.get("show", "1")
 
     if show == "1":
