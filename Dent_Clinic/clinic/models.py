@@ -113,6 +113,9 @@ class Appointment(models.Model):
         verbose_name = "Запись"
         verbose_name_plural = "Записи"
 
+        ordering = ["-date"]
+        indexes = [models.Index(fields=["-date"])]
+
     patient = models.ForeignKey(User, on_delete=models.CASCADE,
                                 related_name="patient_appointments")
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE,

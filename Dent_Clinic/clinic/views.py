@@ -146,10 +146,7 @@ def appointments_calendar(request):
     user = request.user
     appointments = user.patient_appointments.all()
 
-    clicked = request.GET.get("clicked", "False")
-    clicked = clicked == "True"
-
-    today = datetime.date.today()
+    today = datetime.datetime.today()
 
     day = int(request.GET.get("day", today.day))
     month = int(request.GET.get("month", today.month))
@@ -167,11 +164,31 @@ def appointments_calendar(request):
     cal = make_calendar_page(datetime.date(year=year,
                                            month=month, day=1))
 
+    clicked = request.GET.get("clicked", "False")
+    clicked = clicked == "True"
+
+    app_id = request.GET.get("app_id", None)
+
+    if clicked and app_id:
+        sel_app = appointments.get(id=app_id)
+
+    else:
+        sel_app = None
+
+    show = request.GET.get("show", "1")
+
+    if show == "1":
+        appointments.filter(date__gt=today)
+
+    elif show == "2":
+        appointments.filter(date__lt=today)
+
     return render(request, "appointments_page.html",
                   {"calendar": cal, "sel_date": selected_date,
                    "prev_month": prev_month, "next_month": next_month,
                    "prev_year": prev_year, "next_year": next_year,
-                   "clicked": clicked, "appointments": appointments})
+                   "clicked": clicked, "appointments": appointments,
+                   "sel_app": sel_app, "show": show})
 
 
 def send_email(request):
