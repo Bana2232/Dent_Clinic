@@ -162,8 +162,6 @@ def appointments_calendar(request):
     selected_date = datetime.date(year=year,
                                   month=month, day=day)
 
-    print(selected_date)
-
     cal = make_calendar_page(datetime.date(year=year,
                                            month=month, day=1))
 
@@ -179,12 +177,13 @@ def appointments_calendar(request):
         sel_app = None
 
     show = request.GET.get("show", "1")
+    now = timezone.now()
 
     if show == "1":
-        appointments.filter(date__gt=today)
+        appointments = appointments.filter(date__gt=now)
 
     elif show == "2":
-        appointments.filter(date__lt=today)
+        appointments = appointments.filter(date__lt=now)
 
     return render(request, "appointments_page.html",
                   {"calendar": cal, "sel_date": selected_date,
