@@ -126,7 +126,7 @@ class Appointment(models.Model):
                                null=True)
 
     def __str__(self):
-        return f"Запись к {self.doctor}"
+        return f"Запись к {self.doctor} на {self.date}"
 
     @property
     def time_before_appoinment(self):

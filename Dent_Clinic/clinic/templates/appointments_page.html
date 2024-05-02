@@ -20,10 +20,14 @@
         </a>
 
         <div class="list-group list-group-flush border-bottom scrollarea">
+            {% if sel_app %}
             <p>Запись на {{ sel_app.date|date:"d F Y H:i" }}</p>
             <p>Врач: {{ sel_app.doctor }}</p>
             <p>Цель визита: {{ sel_app.target }}</p>
 
+            {% else %}
+            <p>Записей на этот день нет</p>
+            {% endif %}
         </div>
 
         {% else %}
@@ -33,7 +37,7 @@
         <div class="list-group list-group-flush border-bottom scrollarea">
             {% include "cal_filter.html" %}
             {% for app in appointments %}
-            <a href="{% url 'clinic:appointments' %}?year={{ app.date.year }}&month={{ app.date.month }}&day={{ app.date.day }}&app_id={{ app.id }}&clicked=True&show={{ show }}&filt_date={{ filt_date }}"
+            <a href="{% url 'clinic:appointments' %}?year={{ app.date.year }}&month={{ app.date.month }}&day={{ app.date|date:'d' }}&app_id={{ app.id }}&clicked=True&show={{ show }}&filt_date={{ filt_date }}"
                class="list-group-item list-group-item-action py-3 lh-sm">
                 <div class="d-flex w-100 align-items-center justify-content-between">
                     <strong class="mb-1">Запись на {{ app.date|date:"d F Y" }}</strong>

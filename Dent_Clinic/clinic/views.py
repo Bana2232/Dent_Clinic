@@ -162,6 +162,8 @@ def appointments_calendar(request):
     selected_date = datetime.date(year=year,
                                   month=month, day=day)
 
+    print(selected_date)
+
     cal = make_calendar_page(datetime.date(year=year,
                                            month=month, day=1))
 
@@ -176,7 +178,6 @@ def appointments_calendar(request):
     else:
         sel_app = None
 
-    print(timezone.localtime(timezone.now()))
     show = request.GET.get("show", "1")
 
     if show == "1":
