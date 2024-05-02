@@ -7,3 +7,9 @@
         <option value="2">Завершённые</option>
     </select>
 </div>
+
+<script>
+    const selectElement = document.querySelector('select');
+    const selectedOption = {{ show }}; // предполагается, что sel_date.show - текущее значение селект-элемента
+    selectElement.value = selectedOption;
+</script>
