@@ -185,6 +185,26 @@ def appointments_calendar(request):
     elif show == "2":
         appointments = appointments.filter(date__lt=now)
 
+    filt_date = request.GET.get("filt_date", None)
+
+    if filt_date:
+        filt_date = list(map(int, filt_date.split(".")))
+        filt_date = datetime.date(day=filt_date[0], month=filt_date[1], year=filt_date[2])
+
+        appointments = appointments.filter(date__date=filt_date)
+
+    paginator = Paginator(appointments, 8)
+    page_number = request.GET.get("page", 1)
+
+    try:
+        appointments = paginator.page(page_number)
+
+    except EmptyPage:
+        appointments = paginator.page(1)
+
+    except PageNotAnInteger:
+        appointments = paginator.page(1)
+
     return render(request, "appointments_page.html",
                   {"calendar": cal, "sel_date": selected_date,
                    "prev_month": prev_month, "next_month": next_month,

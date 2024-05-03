@@ -31,11 +31,16 @@
         </div>
 
         {% else %}
-        <h3 class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
-            Список ваших записей</h3>
+        <div style="display: flex; justify-content: space-between;">
+            <h3 class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+                Список ваших записей</h3>
+            {% include "pagination.html" %}
+
+        </div>
 
         <div class="list-group list-group-flush border-bottom scrollarea">
             {% include "cal_filter.html" %}
+
             {% for app in appointments %}
             <a href="{% url 'clinic:appointments' %}?year={{ app.date.year }}&month={{ app.date.month }}&day={{ app.date|date:'d' }}&app_id={{ app.id }}&clicked=True&show={{ show }}&filt_date={{ filt_date }}"
                class="list-group-item list-group-item-action py-3 lh-sm">
