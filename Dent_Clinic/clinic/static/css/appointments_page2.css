@@ -8,10 +8,18 @@
     height: 100%;
 }
 
-.circle {
+.circle-green {
     width: 15px;
     height: 15px;
     border-radius: 50%;
     background-color: green;
+    margin-right: 5px;
+}
+
+.circle-gray {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: gray;
     margin-right: 5px;
 }

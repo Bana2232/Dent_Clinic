@@ -190,7 +190,8 @@ def appointments_calendar(request):
                    "prev_month": prev_month, "next_month": next_month,
                    "prev_year": prev_year, "next_year": next_year,
                    "clicked": clicked, "appointments": appointments,
-                   "sel_app": sel_app, "show": show})
+                   "sel_app": sel_app, "show": show,
+                   "now": now})
 
 
 def send_email(request):

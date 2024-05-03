@@ -44,7 +44,13 @@
                     <small class="text-body-secondary">{{ app.date | date:"D" }}</small>
                 </div>
                 <div class="col-10 mb-1 small" style="display: flex;">
-                    <div class="circle"></div>
+                    {% if app.date|date:"Y n j H i s" >= now|date:"Y n j H i s" %}
+                    <div class="circle-green"></div>
+
+                    {% else %}
+                    <div class="circle-gray"></div>
+                    {% endif %}
+
                     {{ app.target }}
                 </div>
             </a>
