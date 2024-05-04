@@ -81,7 +81,7 @@
             <h3 style="color: #ddd; text-align: center; margin-top: 50%; border-bottom: none;">
                 Записи с заданными параметрами отсутствуют
             </h3>
-            <a href="{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ sel_date.day }}&clicked=False&show={{ show }}&filt_date=">
+            <a href="{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ sel_date.day }}&clicked=False&show=0&filt_date=">
                 <button style="position: relative; left: 50%; transform: translate(-55%, 0);"
                         class="btn btn-outline-primary">Посмотреть все
                 </button>

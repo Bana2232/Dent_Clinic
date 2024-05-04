@@ -1,9 +1,11 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.utils import timezone
 
-from datetime import date
+from datetime import date, timedelta
 
 
 class PublishedManager(models.Manager):
@@ -130,18 +132,32 @@ class Appointment(models.Model):
 
     @property
     def time_before_appoinment(self):
-        dif = timezone.now() - self.date
+        time_zone = timezone.get_current_timezone()
 
-        if dif.days == 0:
-            return f"Сегодня в {self.date.strftime('%H:%M')}"
+        ld = timezone.localtime(self.date, timezone=time_zone)
+        ld_now = timezone.localtime(timezone.now(), timezone=time_zone)
 
-        if dif.days == 1:
-            return f"Завтра в {self.date.strftime('%H:%M')}"
+        localized_date = datetime.datetime(year=ld.year, month=ld.month,
+                                           day=ld.day, hour=ld.hour,
+                                           minute=ld.minute, second=ld.second,
+                                           tzinfo=time_zone)
 
-        if dif.days < 0:
-            return f"Приём завершён {self.date.strftime('%d %B %Y')}"
+        localized_date_now = datetime.datetime(year=ld_now.year, month=ld_now.month,
+                                               day=ld_now.day, hour=ld_now.hour,
+                                               minute=ld_now.minute, second=ld_now.second,
+                                               tzinfo=time_zone)
 
-        return f'{self.date.strftime("%d %B %Y")}'
+        if localized_date <= localized_date_now:
+            return f"Приём завершён {localized_date.strftime('%d %B %Y')}"
+
+        if localized_date.date() == localized_date_now.date():
+            return f"Сегодня в {localized_date.strftime('%H:%M')}"
+
+        if (localized_date - localized_date_now).days >= 2:
+            return f'{localized_date.strftime("%d %B %Y")}'
+
+        if localized_date > localized_date_now:
+            return f"Завтра в {localized_date.strftime('%H:%M')}"
 
 
 class BlogPost(models.Model):
