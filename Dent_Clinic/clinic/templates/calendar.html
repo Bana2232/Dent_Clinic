@@ -16,6 +16,16 @@
     </div>
 
     <div class="middle">
+        <div style="display: flex; justify-content: space-between; width: 100%;">
+            <h5 class="weekday">Пн</h5>
+            <h5 class="weekday">Вт</h5>
+            <h5 class="weekday">Ср</h5>
+            <h5 class="weekday">Чт</h5>
+            <h5 class="weekday">Пт</h5>
+            <h5 style="color: red" class="weekday">Сб</h5>
+            <h5 style="color: red" class="weekday">Вс</h5>
+
+        </div>
         {% for week in calendar %}
         <div class="row">
             {% for day in week %}
