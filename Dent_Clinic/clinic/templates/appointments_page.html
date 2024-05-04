@@ -34,45 +34,60 @@
         <div style="display: flex; justify-content: space-between;">
             <h3 class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
                 Список ваших записей</h3>
-                <div style="display: flex;">
-        {% if appointments.has_previous %}
-        <button style="background-color: transparent; border: none;"
-                onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ sel_date.day }}&clicked=False&show={{ show }}&filt_date={{ filt_date }}&page={{ appointments.previous_page_number }}'">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-                <path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>
-            </svg>
-        </button>
+            <div style="display: flex;">
+                {% if appointments.has_previous %}
+                <button style="background-color: transparent; border: none;"
+                        onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ sel_date.day }}&clicked=False&show={{ show }}&filt_date={{ filt_date }}&page={{ appointments.previous_page_number }}'">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"
+                         fill="currentColor">
+                        <path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>
+                    </svg>
+                </button>
 
-        {% else %}
-        <button disabled style="background-color: transparent; border: none;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-                <path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>
-            </svg>
-        </button>
-        {% endif %}
+                {% else %}
+                <button disabled style="background-color: transparent; border: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"
+                         fill="currentColor">
+                        <path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>
+                    </svg>
+                </button>
+                {% endif %}
 
-        {% if appointments.has_next %}
-        <button style="background-color: transparent; border: none;"
-                onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ sel_date.day }}&clicked=False&show={{ show }}&filt_date={{ filt_date }}&page={{ appointments.next_page_number }}'">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-                <path d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"></path>
-            </svg>
-        </button>
+                {% if appointments.has_next %}
+                <button style="background-color: transparent; border: none;"
+                        onclick="window.location.href='{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ sel_date.day }}&clicked=False&show={{ show }}&filt_date={{ filt_date }}&page={{ appointments.next_page_number }}'">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"
+                         fill="currentColor">
+                        <path d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"></path>
+                    </svg>
+                </button>
 
-        {% else %}
-        <button disabled style="background-color: transparent; border: none;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-                <path d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"></path>
-            </svg>
-        </button>
-        {% endif %}
-    </div>
+                {% else %}
+                <button disabled style="background-color: transparent; border: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"
+                         fill="currentColor">
+                        <path d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"></path>
+                    </svg>
+                </button>
+                {% endif %}
+            </div>
 
         </div>
 
         <div class="list-group list-group-flush border-bottom scrollarea">
             {% include "cal_filter.html" %}
 
+            {% if appointments|length == 0 %}
+            <h3 style="color: #ddd; text-align: center; margin-top: 50%; border-bottom: none;">
+                Записи с заданными параметрами отсутствуют
+            </h3>
+            <a href="{% url 'clinic:appointments' %}?year={{ sel_date.year }}&month={{ sel_date.month }}&day={{ sel_date.day }}&clicked=False&show={{ show }}&filt_date=">
+                <button style="position: relative; left: 50%; transform: translate(-55%, 0);"
+                        class="btn btn-outline-primary">Посмотреть все
+                </button>
+            </a>
+
+            {% else %}
             {% for app in appointments %}
             <a href="{% url 'clinic:appointments' %}?year={{ app.date.year }}&month={{ app.date.month }}&day={{ app.date|date:'d' }}&app_id={{ app.id }}&clicked=True&show={{ show }}&filt_date={{ filt_date }}"
                class="list-group-item list-group-item-action py-3 lh-sm">
@@ -92,6 +107,7 @@
                 </div>
             </a>
             {% endfor %}
+            {% endif %}
         </div>
         {% endif %}
     </div>
