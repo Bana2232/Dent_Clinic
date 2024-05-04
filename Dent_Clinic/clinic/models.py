@@ -151,7 +151,7 @@ class Appointment(models.Model):
                                                tzinfo=time_zone)
 
         if localized_date <= localized_date_now:
-            return f"Приём завершён {localized_date.strftime('%d %B %Y')}"
+            return f"Приём завершён {localized_date.strftime('%d %B %Y')} в {localized_date.strftime('%H:%M')}"
 
         if localized_date.date() == localized_date_now.date():
             return f"Сегодня в {localized_date.strftime('%H:%M')}"
