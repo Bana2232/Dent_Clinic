@@ -24,6 +24,7 @@
             <p>Запись на {{ sel_app.date|date:"d F Y H:i" }}</p>
             <p>Врач: {{ sel_app.doctor }}</p>
             <p>Цель визита: {{ sel_app.target }}</p>
+            <p>Цена: {{ sel_app.target.price }}&#8381;</p>
 
             {% else %}
             <p>Записей на этот день нет</p>
