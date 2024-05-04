@@ -1,11 +1,14 @@
 import datetime
+import locale
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.utils import timezone
 
-from datetime import date, timedelta
+from datetime import date
+
+locale.setlocale(locale.LC_ALL, "ru_RU")
 
 
 class PublishedManager(models.Manager):
