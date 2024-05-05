@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django.templatetags.static import static
 from django.utils.safestring import SafeText
 
-from .models import User
+from .models import User, Appointment
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Submit
@@ -78,3 +78,12 @@ class EditProfileForm(forms.ModelForm):
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     ...
+
+
+class MakeAppointment(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ["doctor", "date"]
+        widgets = {
+            "date": forms.DateTimeInput(attrs={"type": "datetime-local"}, format="%Y-%m-%dT%H:%M")
+        }

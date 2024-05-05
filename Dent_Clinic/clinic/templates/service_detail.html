@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}{{ service.name }}{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/service_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <a href="{% url 'clinic:about' %}"><input class="return_btn" value="Вернуться" type="button"></a>
+    <h2 class="pb-2 border-bottom">{{ service.name }}</h2>
+
+    <div class="top">
+        <img src="{{ service.service_image.get.image.url }}" class="image">
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Записаться на приём
+        </button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Записаться на приём</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form method="post">
+                            {{ form.as_p }}
+                            {% csrf_token %}
+                            <input type="submit" value="Записаться" class="btn btn-primary">
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="pb-3 border-bottom" style="margin-top: 20px;">Об услуге</h3>
+    <h5>{{ service.description }}</h5>
+
+</div>
+{% endblock %}

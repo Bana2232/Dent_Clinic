@@ -33,7 +33,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ appoint.target }}</h5>
                 <p class="card-text">Врач: {{ appoint.doctor }}</p>
-                <a href="#" class="btn btn-primary">Подробнее</a>
+                <a href="{% url 'clinic:appointments' %}?year={{ appoint.date|date:'Y' }}&month={{ appoint.date|date:'m' }}&day={{ appoint.date|date:'d' }}&app_id={{ appoint.id }}&clicked=True&show=0" class="btn btn-primary">Подробнее</a>
             </div>
             <div class="card-footer text-body-secondary">
                 {{ appoint.time_before_appoinment }}

@@ -2,13 +2,12 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.urls import reverse
 from django.utils import timezone
 
-from .forms import UserRegistrationForm, LoginForm, EditProfileForm, CustomPasswordChangeForm
+from .forms import UserRegistrationForm, LoginForm, EditProfileForm, CustomPasswordChangeForm, MakeAppointment
 from .models import BlogPost, Doctor, Appointment, Service, User
 from .func import make_calendar_page
 
@@ -71,7 +70,21 @@ def service_list(request):
 
 
 def service_detail(request, service):
-    ...
+    serv = get_object_or_404(Service, slug=service)
+    doctors = Doctor.objects.all()
+
+    if request.method == "POST":
+        form = MakeAppointment(request.POST)
+
+        if form.is_valid():
+            ...
+
+    else:
+        form = MakeAppointment()
+
+    return render(request, "service_detail.html",
+                  {"service": serv, "doctors": doctors,
+                   "form": form})
 
 
 def post_list(request):

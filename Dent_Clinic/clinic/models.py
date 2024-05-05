@@ -21,14 +21,14 @@ class Doctor(models.Model):
         verbose_name = "Врач"
         verbose_name_plural = "Врачи"
 
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    patronymic = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50, verbose_name="Имя")
+    last_name = models.CharField(max_length=50, verbose_name="Фамилия")
+    patronymic = models.CharField(max_length=50, verbose_name="Отчество")
 
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(verbose_name="Дата рождения")
 
-    email = models.EmailField()
-    phone = models.CharField(max_length=20)
+    email = models.EmailField(verbose_name="Электронная почта")
+    phone = models.CharField(max_length=20, verbose_name="Номер телефона")
 
     class Specialization(models.TextChoices):
         WITHOUT_SPEC = "WS", "Нет"
@@ -36,11 +36,11 @@ class Doctor(models.Model):
         SECOND_SPEC = "SS", "Вторая"
         HIGHER_SPEC = "HS", "Высшая"
 
-    specialization = models.CharField(max_length=100)
+    specialization = models.CharField(max_length=100, verbose_name="Специализация")
     category = models.CharField(max_length=2, choices=Specialization.choices,
-                                default=Specialization.WITHOUT_SPEC)
-    works_since = models.DateField(null=True)
-    bio = models.TextField()
+                                default=Specialization.WITHOUT_SPEC, verbose_name="Категория")
+    works_since = models.DateField(null=True, verbose_name="Работает с")
+    bio = models.TextField(verbose_name="О себе")
 
     @property
     def full_name(self):
@@ -101,10 +101,10 @@ class Service(models.Model):
         verbose_name = "Услуга"
         verbose_name_plural = "Услуги"
 
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, verbose_name="Название услуги")
     slug = models.SlugField(max_length=300)
-    description = models.TextField()
-    price = models.DecimalField(max_digits=8, decimal_places=2)
+    description = models.TextField(verbose_name="Описание")
+    price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Цена")
 
     def get_absolute_url(self):
         return reverse("clinic:service_detail", args=[self.slug])
@@ -122,13 +122,13 @@ class Appointment(models.Model):
         indexes = [models.Index(fields=["-date"])]
 
     patient = models.ForeignKey(User, on_delete=models.CASCADE,
-                                related_name="patient_appointments")
+                                related_name="patient_appointments", verbose_name="Пациент")
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE,
-                               related_name="doctor_appointments")
-    date = models.DateTimeField()
+                               related_name="doctor_appointments", verbose_name="Врач")
+    date = models.DateTimeField(verbose_name="Дата")
     target = models.ForeignKey(Service, on_delete=models.CASCADE,
                                related_name="service_appointments",
-                               null=True)
+                               null=True, verbose_name="Цель визита")
 
     def __str__(self):
         return f"Запись к {self.doctor} на {self.date}"
@@ -168,17 +168,18 @@ class BlogPost(models.Model):
         DRAFT = "DF", "Черновик"
         PUBLISHED = "PB", "Опубликован"
 
-    title = models.CharField(max_length=300)
+    title = models.CharField(max_length=300, verbose_name="Заголовок")
     slug = models.SlugField(max_length=300, unique_for_date="created")
 
-    content = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
+    content = models.TextField(verbose_name="Текст")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts",
+                               verbose_name="Автор")
     status = models.CharField(max_length=2,
                               choices=Status.choices,
-                              default=Status.PUBLISHED)
+                              default=Status.PUBLISHED, verbose_name="Статус")
 
-    created = models.DateTimeField(auto_now_add=True)
-    publish = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Создан")
+    publish = models.DateTimeField(default=timezone.now, verbose_name="Опубликован")
 
     objects = models.Manager()
     published = PublishedManager()
@@ -205,11 +206,12 @@ class Review(models.Model):
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
 
-    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
-    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
-    comment = models.TextField()
+    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews",
+                                verbose_name="Пациент")
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)], verbose_name="Оценка")
+    comment = models.TextField(verbose_name="Текст комментария")
 
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Создан")
 
     def __str__(self):
         return f"Отзыв {self.patient} {self.created}"
@@ -225,8 +227,8 @@ class DoctorImages(models.Model):
 
     doctor = models.ForeignKey(Doctor,
                                on_delete=models.CASCADE,
-                               related_name="doctor_image")
-    image = models.ImageField(upload_to=image_path)
+                               related_name="doctor_image", verbose_name="Врач")
+    image = models.ImageField(upload_to=image_path, verbose_name="Изображение")
 
 
 class ServiceImages(models.Model):
@@ -239,9 +241,10 @@ class ServiceImages(models.Model):
 
     service = models.ForeignKey(Service,
                                 on_delete=models.CASCADE,
-                                related_name="service_image")
+                                related_name="service_image", verbose_name="Услуга")
     image = models.ImageField(upload_to=image_path,
-                              default="clinic/static/no_photo.png")
+                              default="clinic/static/no_photo.png",
+                              verbose_name="Изображение")
 
 
 class ServiceVideo(models.Model):
@@ -268,6 +271,6 @@ class PostImages(models.Model):
 
     post = models.ForeignKey(BlogPost,
                              on_delete=models.CASCADE,
-                             related_name="post_image")
+                             related_name="post_image", verbose_name="Пост")
 
-    image = models.ImageField(upload_to=image_path)
+    image = models.ImageField(upload_to=image_path, verbose_name="Изображение")
