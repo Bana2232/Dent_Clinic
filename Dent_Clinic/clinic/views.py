@@ -72,6 +72,7 @@ def service_list(request):
 def service_detail(request, service):
     serv = get_object_or_404(Service, slug=service)
     doctors = Doctor.objects.all()
+    sent = False
 
     if request.method == "POST":
         form = MakeAppointment(request.POST)
@@ -83,13 +84,13 @@ def service_detail(request, service):
             appointment.target = serv
 
             appointment.save()
-
+            sent = True
     else:
         form = MakeAppointment()
 
     return render(request, "service_detail.html",
                   {"service": serv, "doctors": doctors,
-                   "form": form})
+                   "form": form, "sent": sent})
 
 
 def post_list(request):
