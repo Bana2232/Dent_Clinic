@@ -85,5 +85,7 @@ class MakeAppointment(forms.ModelForm):
         model = Appointment
         fields = ["doctor", "date"]
         widgets = {
-            "date": forms.DateTimeInput(attrs={"type": "datetime-local"}, format="%Y-%m-%dT%H:%M")
+            "date": forms.DateTimeInput(attrs={"type": "datetime-local",
+                                               "class": "form-select"}, format="%Y-%m-%dT%H:%M"),
+            "doctor": forms.Select(attrs={"class": "form-select"})
         }

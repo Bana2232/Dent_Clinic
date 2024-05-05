@@ -77,7 +77,12 @@ def service_detail(request, service):
         form = MakeAppointment(request.POST)
 
         if form.is_valid():
-            ...
+            appointment = form.save(commit=False)
+
+            appointment.patient = request.user
+            appointment.target = serv
+
+            appointment.save()
 
     else:
         form = MakeAppointment()
