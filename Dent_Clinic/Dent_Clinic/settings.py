@@ -115,3 +115,9 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Конфигурация сервера электронной почты
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "zubenkop2705@gmail.com"
+EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = True

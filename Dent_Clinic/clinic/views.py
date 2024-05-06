@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.urls import reverse
 from django.utils import timezone
+from django.core.mail import send_mail
 
 from .forms import UserRegistrationForm, LoginForm, EditProfileForm, CustomPasswordChangeForm, MakeAppointment
 from .models import BlogPost, Doctor, Appointment, Service, User
@@ -82,6 +83,12 @@ def service_detail(request, service):
 
             appointment.patient = request.user
             appointment.target = serv
+
+            subject = f"Запись на приём"
+            message = f"Вы записались на приём к {appointment.doctor} на {appointment.date}.\n"
+
+            send_mail(subject, message, "zubenkop2705@gmail.com",
+                      [request.user.email])
 
             appointment.save()
             sent = True
@@ -235,10 +242,6 @@ def appointments_calendar(request):
                    "clicked": clicked, "appointments": appointments,
                    "sel_app": sel_app, "show": show,
                    "now": now})
-
-
-def send_email(request):
-    ...
 
 
 def post_comment(request):

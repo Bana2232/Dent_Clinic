@@ -11,11 +11,16 @@
 {% block content %}
 <div class="content">
     <a href="{% url 'clinic:about' %}"><input class="return_btn" value="Вернуться" type="button"></a>
+    {% if sent %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        Вы успешно записались на приём. Подтверждение отправлено на вашу почту
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
     <h2 class="pb-2 border-bottom">{{ service.name }}</h2>
 
     <div class="top">
-        <div class="image"></div>
-        <img src="{{ service.service_image.get.image.url }}">
+        <img src="{{ service.service_image.get.image.url }}" class="image">
 
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 style="height: 60px; width 150px;">
