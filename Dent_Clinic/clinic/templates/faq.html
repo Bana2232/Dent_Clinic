@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Часто задаваемые вопросы{% endblock %}
+
+{% block content %}
+<div class="content" style="margin: 10px;">
+    <h1>Часто задаваемые вопросы</h1>
+    <div class="bd-example-snippet bd-code-snippet" style="width: 60%; margin-top: 3%;">
+        <div class="bd-example m-0 border-0">
+
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h4 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Вопрос 1
+                        </button>
+                    </h4>
+                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample"
+                         style="">
+                        <div class="accordion-body">
+                            Ответ 1
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h4 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                           Вопрос 2
+                        </button>
+                    </h4>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Ответ 2
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h4 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Вопрос 3
+                        </button>
+                    </h4>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Ответ 3
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

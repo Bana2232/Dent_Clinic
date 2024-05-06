@@ -18,5 +18,6 @@ urlpatterns = [
     path("about/", views.about, name="about"),
     path("doctors/<int:doctor_id>", views.doctor_detail, name="doctor_detail"),
     path("change_password", views.change_password, name="change_psw"),
-    path("services/<slug:service>", views.service_detail, name="service_detail")
+    path("services/<slug:service>", views.service_detail, name="service_detail"),
+    path("faq", views.faq_view, name="faq")
 ]

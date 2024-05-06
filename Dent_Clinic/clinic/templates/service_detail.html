@@ -14,7 +14,8 @@
     <h2 class="pb-2 border-bottom">{{ service.name }}</h2>
 
     <div class="top">
-        <img src="{{ service.service_image.get.image.url }}" class="image">
+        <div class="image"></div>
+        <img src="{{ service.service_image.get.image.url }}">
 
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 style="height: 60px; width 150px;">

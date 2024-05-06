@@ -93,6 +93,10 @@ def service_detail(request, service):
                    "form": form, "sent": sent})
 
 
+def faq_view(request):
+    return render(request, "faq.html")
+
+
 def post_list(request):
     posts_list = BlogPost.published.all()
 

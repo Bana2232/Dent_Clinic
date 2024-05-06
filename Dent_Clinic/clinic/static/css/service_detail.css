@@ -16,9 +16,11 @@
 .image {
     width: 400px;
     height: 400px;
-    background-size: cover;
-    background-position: center;
     border-radius: 10px;
+    position: relative;
+    background-size: contain;
+    background-position: center;
+    background-repat: no-repeat;
 }
 
 .top {
