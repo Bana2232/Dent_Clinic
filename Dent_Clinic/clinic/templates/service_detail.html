@@ -10,9 +10,9 @@
 
 {% block content %}
 <div class="content">
-    <a href="{% url 'clinic:about' %}"><input class="return_btn" value="Вернуться" type="button"></a>
+    <a href="{% url 'clinic:services_list' %}"><input class="return_btn" value="Вернуться" type="button"></a>
     {% if sent %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 1%;">
         Вы успешно записались на приём. Подтверждение отправлено на вашу почту
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -22,11 +22,13 @@
     <div class="top">
         <img src="{{ service.service_image.get.image.url }}" class="image">
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                style="height: 60px; width 150px;">
-            Записаться на приём
-        </button>
-
+        <div>
+            <h3>{{ service.price }}&#8381;</h3>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    style="height: 60px; width 150px;">
+                Записаться на приём
+            </button>
+        </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -54,5 +56,29 @@
     <h3 class="pb-3 border-bottom" style="margin-top: 20px;">Об услуге</h3>
     <h5>{{ service.description }}</h5>
 
+    <h2 style="margin-top: 3%; border-bottom: 1px solid #ccc; padding-bottom: 1%;">Отзывы о товаре</h2>
+    <a href="{% url 'clinic:post_comment' service.id %}"><input class="btn btn-primary" value="Написать отзыв" type="button"></a>
+
+    {% if comment|length == 0 %}
+    <h3 align="center" style="color: #ddd">Отзывов нет</h3>
+    {% else %}
+    {% for comment in comments %}
+    <div class="comment_box">
+
+        <div class="user-info">
+            <p>{{ comment.name }}</p>
+        </div>
+        <div class="review-info">
+            <p class="date">{{ comment.created }}</p>
+            <div class="rating">
+                {% for star in service.rating %}
+                <span class="star">⭐</span>
+                {% endfor %}
+            </div>
+            <p class="content">{{ comment.body }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}

@@ -28,7 +28,8 @@
             <div class="card-body">
                 <a href="{{ service.get_absolute_url }}" style="text-decoration: none; color: black; ">
                     <h5 class="card-title">{{ service.name }}</h5>
-                    <p class="card-text" style="margin-bottom: 10px;">{{ service.description }}</p>
+                    <p>{{ service.price }}&#8381;</p>
+                    <p class="card-text" style="margin-bottom: 10px;">{{ service.description|truncatechars:80 }}</p>
                 </a>
 
                 <a href="{{ service.get_absolute_url }}" class="btn btn-primary">Подробнее</a>

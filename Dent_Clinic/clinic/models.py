@@ -206,6 +206,9 @@ class Review(models.Model):
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
 
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name="services",
+                                verbose_name="Услуга")
+
     patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews",
                                 verbose_name="Пациент")
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)], verbose_name="Оценка")

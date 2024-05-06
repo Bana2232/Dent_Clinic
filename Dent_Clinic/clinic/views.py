@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.core.mail import send_mail
 
 from .forms import UserRegistrationForm, LoginForm, EditProfileForm, CustomPasswordChangeForm, MakeAppointment
-from .models import BlogPost, Doctor, Appointment, Service, User
+from .models import BlogPost, Doctor, Appointment, Service, User, Review
 from .func import make_calendar_page
 
 
@@ -72,6 +72,8 @@ def service_list(request):
 
 def service_detail(request, service):
     serv = get_object_or_404(Service, slug=service)
+    comments = Review.objects.filter(id=serv.id)
+
     doctors = Doctor.objects.all()
     sent = False
 
@@ -97,7 +99,8 @@ def service_detail(request, service):
 
     return render(request, "service_detail.html",
                   {"service": serv, "doctors": doctors,
-                   "form": form, "sent": sent})
+                   "form": form, "sent": sent,
+                   "comments": comments})
 
 
 def faq_view(request):
@@ -244,8 +247,8 @@ def appointments_calendar(request):
                    "now": now})
 
 
-def post_comment(request):
-    ...
+def post_comment(request, service_slug):
+    return render(request, "comment_form.html")
 
 
 def about(request):

@@ -3,10 +3,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django.templatetags.static import static
 from django.utils.safestring import SafeText
 
-from .models import User, Appointment
+from .models import User, Appointment, Review
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Submit
+from crispy_forms.layout import Layout, Row, Column
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -89,3 +89,9 @@ class MakeAppointment(forms.ModelForm):
                                                "class": "form-select"}, format="%Y-%m-%dT%H:%M"),
             "doctor": forms.Select(attrs={"class": "form-select"})
         }
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ["comment", "rating"]
