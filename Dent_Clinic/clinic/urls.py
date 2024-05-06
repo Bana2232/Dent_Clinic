@@ -20,5 +20,5 @@ urlpatterns = [
     path("change_password", views.change_password, name="change_psw"),
     path("services/<slug:service>", views.service_detail, name="service_detail"),
     path("faq/", views.faq_view, name="faq"),
-    path("<slug:service_slug>/post_comment", views.post_comment, name="post_comment"),
+    path("services/<slug:service_slug>/post_comment", views.post_comment, name="post_comment"),
 ]

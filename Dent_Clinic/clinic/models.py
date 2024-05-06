@@ -211,6 +211,7 @@ class Review(models.Model):
 
     patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews",
                                 verbose_name="Пациент")
+
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)], verbose_name="Оценка")
     comment = models.TextField(verbose_name="Текст комментария")
 

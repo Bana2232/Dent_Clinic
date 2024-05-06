@@ -3,10 +3,12 @@
 {% block title %}{% endblock %}
 
 {% block content %}
-<h2>Добавить отзыв</h2>
-<form method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <p><input type="submit" value="Добавить отзыв"></p>
-</form>
+<div class="content" style="margin: 20px;">
+    <h2>Добавить отзыв</h2>
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Добавить отзыв" class="btn btn-primary"></p>
+    </form>
+</div>
 {% endblock %}

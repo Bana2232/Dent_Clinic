@@ -8,7 +8,8 @@ from django.urls import reverse
 from django.utils import timezone
 from django.core.mail import send_mail
 
-from .forms import UserRegistrationForm, LoginForm, EditProfileForm, CustomPasswordChangeForm, MakeAppointment
+from .forms import UserRegistrationForm, LoginForm, EditProfileForm, CustomPasswordChangeForm, MakeAppointment, \
+    ReviewForm
 from .models import BlogPost, Doctor, Appointment, Service, User, Review
 from .func import make_calendar_page
 
@@ -248,7 +249,26 @@ def appointments_calendar(request):
 
 
 def post_comment(request, service_slug):
-    return render(request, "comment_form.html")
+    service = get_object_or_404(Service, slug=service_slug)
+
+    if request.method == "POST":
+        form = ReviewForm(data=request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+
+            comment.service = service
+            comment.patient = request.user
+
+            comment.save()
+
+        return redirect("clinic:service_detail", service_slug)
+
+    else:
+        form = ReviewForm()
+
+    return render(request, "comment_form.html",
+                  {"form": form})
 
 
 def about(request):

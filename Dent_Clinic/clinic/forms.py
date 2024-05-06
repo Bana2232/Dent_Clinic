@@ -95,3 +95,8 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ["comment", "rating"]
+
+        widgets = {
+            "rating": forms.Select(attrs={"class": "form-select", "style": "width: 200px"}),
+            "comment": forms.Textarea(attrs={"class": "form-control", "style": "width: 50%"})
+        }

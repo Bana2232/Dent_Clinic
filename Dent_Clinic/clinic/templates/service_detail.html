@@ -57,7 +57,7 @@
     <h5>{{ service.description }}</h5>
 
     <h2 style="margin-top: 3%; border-bottom: 1px solid #ccc; padding-bottom: 1%;">Отзывы о товаре</h2>
-    <a href="{% url 'clinic:post_comment' service.id %}"><input class="btn btn-primary" value="Написать отзыв" type="button"></a>
+    <a href="{% url 'clinic:post_comment' service.slug %}"><input class="btn btn-primary" value="Написать отзыв" type="button"></a>
 
     {% if comment|length == 0 %}
     <h3 align="center" style="color: #ddd">Отзывов нет</h3>
