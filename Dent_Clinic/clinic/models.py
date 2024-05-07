@@ -102,7 +102,7 @@ class Service(models.Model):
         verbose_name_plural = "Услуги"
 
     name = models.CharField(max_length=200, verbose_name="Название услуги")
-    slug = models.SlugField(max_length=300)
+    slug = models.SlugField(max_length=300, verbose_name="Слаг (заполняется автоматически)")
     description = models.TextField(verbose_name="Описание")
     price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Цена")
 
@@ -163,13 +163,26 @@ class Appointment(models.Model):
             return f"Завтра в {localized_date.strftime('%H:%M')}"
 
 
+class PostSubjects(models.Model):
+    class Meta:
+        verbose_name = "Тематика поста"
+        verbose_name_plural = "Тематики постов"
+        ordering = ["id"]
+
+    post_subject = models.CharField(max_length=40, verbose_name="Тематика")
+
+    def __str__(self):
+        return self.post_subject
+
+
 class BlogPost(models.Model):
     class Status(models.TextChoices):
         DRAFT = "DF", "Черновик"
         PUBLISHED = "PB", "Опубликован"
 
     title = models.CharField(max_length=300, verbose_name="Заголовок")
-    slug = models.SlugField(max_length=300, unique_for_date="created")
+    slug = models.SlugField(max_length=300, verbose_name="Слаг (заполняется автоматически)",
+                            unique_for_date="created")
 
     content = models.TextField(verbose_name="Текст")
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts",
@@ -180,6 +193,9 @@ class BlogPost(models.Model):
 
     created = models.DateTimeField(auto_now_add=True, verbose_name="Создан")
     publish = models.DateTimeField(default=timezone.now, verbose_name="Опубликован")
+
+    subject = models.ForeignKey(PostSubjects, on_delete=models.CASCADE, related_name="subject",
+                                null=True)
 
     objects = models.Manager()
     published = PublishedManager()
@@ -251,20 +267,6 @@ class ServiceImages(models.Model):
                               verbose_name="Изображение")
 
 
-class ServiceVideo(models.Model):
-    class Meta:
-        verbose_name = "Видео услуги"
-        verbose_name_plural = "Видео услуг"
-
-    def video_path(self, filename):
-        return f"clinic/static/ServiceVideo/{str(self.service.id)}/{filename}"
-
-    service = models.ForeignKey(Service,
-                                on_delete=models.CASCADE,
-                                related_name="service_video")
-    video = models.FileField(upload_to=video_path)
-
-
 class PostImages(models.Model):
     class Meta:
         verbose_name = "Изображение поста"
@@ -278,3 +280,17 @@ class PostImages(models.Model):
                              related_name="post_image", verbose_name="Пост")
 
     image = models.ImageField(upload_to=image_path, verbose_name="Изображение")
+
+
+class ServiceVideo(models.Model):
+    class Meta:
+        verbose_name = "Видео услуги"
+        verbose_name_plural = "Видео услуг"
+
+    def video_path(self, filename):
+        return f"clinic/static/ServiceVideo/{str(self.service.id)}/{filename}"
+
+    service = models.ForeignKey(Service,
+                                on_delete=models.CASCADE,
+                                related_name="service_video")
+    video = models.FileField(upload_to=video_path)

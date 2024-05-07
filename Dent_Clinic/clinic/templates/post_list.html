@@ -14,7 +14,7 @@
     <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
         {% for post in posts %}
         <a href="{{ post.get_absolute_url }}" style="text-decoration: none;">
-            <div class="col">
+            <div class="col" style="height: 400px;">
                 <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
                      style="background-image: url({{ post.post_image.get.image.url }}); ">
                     <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
@@ -28,7 +28,7 @@
                                 <svg class="bi me-2" width="1em" height="1em">
                                     <use xlink:href="#geo-fill"></use>
                                 </svg>
-                                <small>Гигиена</small>
+                                <small>{{ post.subject }}</small>
                             </li>
                             <li class="d-flex align-items-center">
                                 <svg class="bi me-2" width="1em" height="1em">

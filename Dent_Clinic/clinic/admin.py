@@ -65,10 +65,9 @@ class ServiceImagesAdmin(admin.ModelAdmin):
     list_filter = ["service"]
 
 
-@admin.register(ServiceVideo)
-class ServiceVideoAdmin(admin.ModelAdmin):
-    list_display = ["service", "video"]
-    list_filter = ["service"]
+@admin.register(PostSubjects)
+class PostSubjectsAdmin(admin.ModelAdmin):
+    list_display = ["id", "post_subject"]
 
 
 @admin.register(PostImages)

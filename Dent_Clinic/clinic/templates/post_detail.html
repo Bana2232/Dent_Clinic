@@ -11,10 +11,10 @@
 <div class="content">
     <a href="{% url 'clinic:post_list' %}"><input class="return_btn" value="Вернуться" type="button"></a>
     <h2 class="pb-2 border-bottom" style="margin-top: 5px;">{{ post.title }}</h2>
-    <p class="date">
+    <p class="date" style="font-style: italic">
         Опубликовано {{ post.publish }} пользователем {{ post.author }}
     </p>
-    {{ post.content|linebreaks }}
+    {{ post.content|safe|linebreaks }}
 
 </div>
 {% endblock %}
