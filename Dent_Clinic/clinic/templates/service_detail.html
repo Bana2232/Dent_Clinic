@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}{{ service.name }}{% endblock %}
 
@@ -57,7 +58,8 @@
     <h5>{{ service.description }}</h5>
 
     <h2 style="margin-top: 3%; border-bottom: 1px solid #ccc; padding-bottom: 1%;">Отзывы о товаре</h2>
-    <a href="{% url 'clinic:post_comment' service.slug %}"><input class="btn btn-primary" value="Написать отзыв" type="button"></a>
+    <a href="{% url 'clinic:post_comment' service.slug %}"><input class="btn btn-primary" value="Написать отзыв"
+                                                                  type="button"></a>
 
     {% if comments|length == 0 %}
     <h3 align="center" style="color: #ddd">Отзывов нет</h3>
@@ -66,14 +68,14 @@
     <div class="comment_box">
 
         <div class="user-info">
-            <p>{{ comment.patient.full_name }}</p>
+            <h3>{{ comment.patient.full_name }}</h3>
         </div>
         <div class="review-info">
-            <p class="date">{{ comment.created }}</p>
+            {{ comment.created }}
             <div class="rating">
-                <span class="star">⭐</span>
+                <span class="star">{{ "⭐"|multiply_string:comment.rating  }}</span>
             </div>
-            <p>{{ comment.comment }}</p>
+            <p style="font-size: 18px; margin-top: 5px;">{{ comment.comment }}</p>
         </div>
     </div>
     {% endfor %}
