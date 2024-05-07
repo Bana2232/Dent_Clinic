@@ -10,7 +10,7 @@ from django.core.mail import send_mail
 
 from .forms import UserRegistrationForm, LoginForm, EditProfileForm, CustomPasswordChangeForm, MakeAppointment, \
     ReviewForm
-from .models import BlogPost, Doctor, Appointment, Service, User, Review
+from .models import BlogPost, Doctor, Appointment, Service, Review
 from .func import make_calendar_page
 
 
@@ -75,6 +75,18 @@ def service_detail(request, service):
     serv = get_object_or_404(Service, slug=service)
     comments = Review.objects.filter(service__id=serv.id)
 
+    paginator = Paginator(comments, 4)
+    page_number = request.GET.get("page", 1)
+
+    try:
+        comments = paginator.page(page_number)
+
+    except EmptyPage:
+        comments = paginator.page(1)
+
+    except PageNotAnInteger:
+        comments = paginator.page(1)
+
     doctors = Doctor.objects.all()
     sent = False
 
@@ -101,7 +113,7 @@ def service_detail(request, service):
     return render(request, "service_detail.html",
                   {"service": serv, "doctors": doctors,
                    "form": form, "sent": sent,
-                   "comments": comments})
+                   "comments": comments, "paginator": paginator})
 
 
 def faq_view(request):

@@ -79,6 +79,7 @@
         </div>
     </div>
     {% endfor %}
+    {% include "pagination.html" with page=pages items=comments %}
     {% endif %}
 </div>
 {% endblock %}

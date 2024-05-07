@@ -97,7 +97,7 @@
                     <small class="text-body-secondary">{{ app.date | date:"D" }}</small>
                 </div>
                 <div class="col-10 mb-1 small" style="display: flex;">
-                    {% if app.date|date:"Y n j H i s" >= now|date:"Y n j H i s" %}
+                    {% if app.date|date:"Y.m.d H:i:s" >= now|date:"Y.m.d H:i:s" %}
                     <div class="circle-green"></div>
 
                     {% else %}
