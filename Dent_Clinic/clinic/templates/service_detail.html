@@ -5,7 +5,7 @@
 {% block title %}{{ service.name }}{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/service_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/service_detail2.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -59,23 +59,21 @@
     <h2 style="margin-top: 3%; border-bottom: 1px solid #ccc; padding-bottom: 1%;">Отзывы о товаре</h2>
     <a href="{% url 'clinic:post_comment' service.slug %}"><input class="btn btn-primary" value="Написать отзыв" type="button"></a>
 
-    {% if comment|length == 0 %}
+    {% if comments|length == 0 %}
     <h3 align="center" style="color: #ddd">Отзывов нет</h3>
     {% else %}
     {% for comment in comments %}
     <div class="comment_box">
 
         <div class="user-info">
-            <p>{{ comment.name }}</p>
+            <p>{{ comment.patient.full_name }}</p>
         </div>
         <div class="review-info">
             <p class="date">{{ comment.created }}</p>
             <div class="rating">
-                {% for star in service.rating %}
                 <span class="star">⭐</span>
-                {% endfor %}
             </div>
-            <p class="content">{{ comment.body }}</p>
+            <p>{{ comment.comment }}</p>
         </div>
     </div>
     {% endfor %}

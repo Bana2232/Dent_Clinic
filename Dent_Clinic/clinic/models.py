@@ -207,7 +207,7 @@ class Review(models.Model):
         verbose_name_plural = "Отзывы"
 
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name="services",
-                                verbose_name="Услуга")
+                                verbose_name="Услуга", null=True)
 
     patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews",
                                 verbose_name="Пациент")

@@ -73,7 +73,7 @@ def service_list(request):
 
 def service_detail(request, service):
     serv = get_object_or_404(Service, slug=service)
-    comments = Review.objects.filter(id=serv.id)
+    comments = Review.objects.filter(service__id=serv.id)
 
     doctors = Doctor.objects.all()
     sent = False
