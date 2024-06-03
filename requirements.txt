@@ -2,3 +2,4 @@ django
 pillow
 django-crispy-forms
 schedule
+crispy_bootstrap5
